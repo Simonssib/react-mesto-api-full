@@ -1,0 +1,11 @@
+.elements__number-like {
+    width: 10px;
+    height: 13px;
+    border: 0;
+    padding: 0;
+    margin: 3px 0 0 0;
+    align-self: center;
+    line-height: 13px;
+    font-size: 400;
+    color: #000000;
+}

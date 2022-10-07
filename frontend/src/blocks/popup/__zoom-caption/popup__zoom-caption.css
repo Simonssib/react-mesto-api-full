@@ -1,0 +1,12 @@
+.popup__zoom-caption {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 400;
+    color: #FFFFFF;
+    overflow: hidden;
+    margin-top: 10px;
+    max-width: 200px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,22 @@
+.register__btn {
+    font-family: 'Inter', "Arial", sans-serif;
+    font-weight: 400;
+    height: 50px;
+    width: 358px;
+    background-color: white;
+    border: 0;
+    border-radius: 2px;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+    transition: opacity .5s linear;
+    outline: none;
+    align-content: center;
+    margin: 216px auto 0 auto;
+}
+
+.popup__save:hover {
+    opacity: 0.8;
+}
