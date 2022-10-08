@@ -98,9 +98,9 @@ class Api {
 }
 
 const api = new Api({
-    baseUrl: "https://mesto.nomoreparties.co/v1/cohort-41",
+    baseUrl: "https://api.simonmesto.students.nomoredomains.icu",
     headers: {
-        authorization: "8f21f79f-6e9f-4a38-b93b-6b074dd058d2",
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Content-Type': 'application/json'
     },
 });
