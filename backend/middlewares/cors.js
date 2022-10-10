@@ -1,6 +1,8 @@
 const allowedCors = [
   'http://simonmesto.students.nomoredomains.icu/',
   'https://simonmesto.students.nomoredomains.icu/',
+  'http://api.simonmesto.students.nomoredomains.icu/',
+  'https://api.simonmesto.students.nomoredomains.icu/',
   'localhost:3000',
 ];
 
