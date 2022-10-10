@@ -8,6 +8,10 @@ class Api {
         return fetch(`${this._baseUrl}/cards`, {
                 method: 'GET',
                 mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+                },
             })
             .then(this._checkError);
     };
@@ -18,7 +22,7 @@ class Api {
                 mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('jwt')}`
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
                 },
             })
             .then(this._checkError);
@@ -30,7 +34,7 @@ class Api {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('jwt')}`
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
                 },
                 body: JSON.stringify({
                     name: name,
@@ -46,7 +50,7 @@ class Api {
                 mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('jwt')}`
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
                 },
                 body: JSON.stringify({
                     name: data.name,
@@ -62,7 +66,7 @@ class Api {
             mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt')}`
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
             },
         }).then(this._checkError);
     };
@@ -73,7 +77,7 @@ class Api {
             mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt')}`
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
             },
             credentials: 'include',
         }).then(this._checkError);
@@ -85,7 +89,7 @@ class Api {
             mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt')}`
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
             },
         }).then(this._checkError);
     };
@@ -96,7 +100,7 @@ class Api {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('jwt')}`
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
                 }
             }).then(this._checkError);
         } else {
@@ -104,7 +108,7 @@ class Api {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('jwt')}`
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
                 },
             }).then(this._checkError);
         }
@@ -116,7 +120,7 @@ class Api {
             mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('jwt')}`
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
             },
             body: JSON.stringify({
                 avatar: url,
