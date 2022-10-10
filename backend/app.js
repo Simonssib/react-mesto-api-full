@@ -2,11 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const { errors } = require('celebrate');
 const userRoutes = require('./routes/users');
 const routerCards = require('./routes/cards');
 const auth = require('./middlewares/auth');
-const cors = require('./middlewares/cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/not-found-err');
 const { login, createUser } = require('./controllers/users');
@@ -20,7 +20,15 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
 
-app.use(cors);
+app.use(cors({
+  origin: [
+    'https://simonmesto.students.nomoredomains.icu',
+    'http://simonmesto.students.nomoredomains.icu',
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
