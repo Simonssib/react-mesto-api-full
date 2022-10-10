@@ -7,6 +7,7 @@ const userRoutes = require('./routes/users');
 const routerCards = require('./routes/cards');
 const auth = require('./middlewares/auth');
 const cors = require('./middlewares/cors');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/not-found-err');
 const { login, createUser } = require('./controllers/users');
 const { validateLogin, validateCreateUser } = require('./middlewares/validator');
@@ -21,6 +22,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(requestLogger);
 app.use(cookieParser());
 
 app.use(cors);
@@ -37,6 +39,7 @@ app.use((req, res, next) => {
   next(new NotFoundError('Страница не найдена'));
 });
 
+app.use(errorLogger);
 app.use(errors()); // обработчик ошибок celebrate
 
 app.use((err, req, res, next) => {
