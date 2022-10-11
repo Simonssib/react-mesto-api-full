@@ -72,7 +72,7 @@ class Api {
     };
 
     setLike(id) {
-        return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
             method: 'PUT',
             mode: 'no-cors',
             headers: {
@@ -84,7 +84,7 @@ class Api {
     };
 
     removeLike(id) {
-        return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
             method: 'DELETE',
             mode: 'no-cors',
             headers: {
@@ -137,7 +137,7 @@ class Api {
 }
 
 const api = new Api({
-    baseUrl: "https://api.simonmesto.students.nomoredomains.icu",
+    baseUrl: "https://api.simonmesto.students.nomoredomains.icu/",
 });
 
 export default api;

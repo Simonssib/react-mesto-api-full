@@ -32,7 +32,6 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState([]);
   const [cards, setCards] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard
 
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
@@ -63,18 +62,10 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
-      api
-        .getUserInfo()
-        .then((res) => {
-          setCurrentUser(res);
-        })
-        .catch((err) => {
-          console.log(err)
-        });
-
-      api.getInitialCards()
-        .then((cards) => {
-          setCards(cards);
+      Promise.all([api.getUserInfo(), api.getInitialCards()])
+        .then(([user, items]) => {
+          setCurrentUser(user);
+          setCards(items);
         })
         .catch((err) => {
           console.log(err);
@@ -200,7 +191,7 @@ function App() {
       .then(() => {
         setInfoTooltipImage(imageSuccess);
         setInfoTooltipMessage("Вы успешно зарегистрировались!");
-        history.push("/sign-in");
+        history.push("/signin");
       })
       .catch((err) => {
         console.log(err);
@@ -241,16 +232,16 @@ function App() {
               loggedIn={loggedIn}
             />
 
-            <Route exact path="/sign-up">
+            <Route exact path="/signup">
               <Register onRegister={onRegister} />
             </Route>
 
-            <Route exact path="/sign-in">
+            <Route exact path="/signin">
               <Login onLogin={onLogin} />
             </Route>
 
             <Route>
-              {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+              {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
             </Route>
           </Switch>
           <Footer />
