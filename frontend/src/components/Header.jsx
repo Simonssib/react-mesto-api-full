@@ -10,13 +10,13 @@ function Header({userEmail, onLogOut}) {
     <header className="header">
       <img src={logo} alt="логотип" className="header__logo" />
       <Switch>
-          <Route path="/signup">
-            <Link to="/signin" className="header__link">
+          <Route path="/sign-up">
+            <Link to="/sign-in" className="header__link">
               Войти
             </Link>
           </Route>
-          <Route path="/signin">
-            <Link to="/signup" className="header__link">
+          <Route path="/sign-in">
+            <Link to="/sign-up" className="header__link">
               Регистрация
             </Link>
           </Route>

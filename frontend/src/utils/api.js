@@ -7,11 +7,7 @@ class Api {
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {
                 method: 'GET',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-                },
+                headers: this._headers,
             })
             .then(this._checkError);
     };
@@ -19,11 +15,7 @@ class Api {
     getUserInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
                 method: 'GET',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-                },
+                headers: this._headers,
             })
             .then(this._checkError);
     };
@@ -31,11 +23,7 @@ class Api {
     editUserInfo(name, about) {
         return fetch(`${this._baseUrl}/users/me`, {
                 method: 'PATCH',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-                },
+                headers: this._headers,
                 body: JSON.stringify({
                     name: name,
                     about: about
@@ -47,11 +35,7 @@ class Api {
     addCard(data) {
         return fetch(`${this._baseUrl}/cards`, {
                 method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-                },
+                headers: this._headers,
                 body: JSON.stringify({
                     name: data.name,
                     link: data.link,
@@ -63,34 +47,21 @@ class Api {
     deleteCard(cardId) {
         return fetch(`${this._baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-            },
+            headers: this._headers,
         }).then(this._checkError);
     };
 
     setLike(id) {
-        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+        return fetch(`${this._baseUrl}/cards/likes/${id}`, {
             method: 'PUT',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-            },
-            credentials: 'include',
+            headers: this._headers,
         }).then(this._checkError);
     };
 
     removeLike(id) {
-        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+        return fetch(`${this._baseUrl}/cards/likes/${id}`, {
             method: 'DELETE',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-            },
+            headers: this._headers,
         }).then(this._checkError);
     };
 
@@ -98,18 +69,12 @@ class Api {
         if (isLiked) {
             return fetch(`${this._baseUrl}/cards/likes/${id}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-                }
+                headers: this._headers
             }).then(this._checkError);
         } else {
             return fetch(`${this._baseUrl}/cards/likes/${id}`, {
                 method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-                },
+                headers: this._headers
             }).then(this._checkError);
         }
     }
@@ -117,11 +82,7 @@ class Api {
     editUserAvatar(url) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-            },
+            headers: this._headers,
             body: JSON.stringify({
                 avatar: url,
             })
@@ -137,7 +98,11 @@ class Api {
 }
 
 const api = new Api({
-    baseUrl: "https://api.simonmesto.students.nomoredomains.icu/",
+    baseUrl: "https://mesto.nomoreparties.co/v1/cohort-41",
+    headers: {
+        authorization: "8f21f79f-6e9f-4a38-b93b-6b074dd058d2",
+        'Content-Type': 'application/json'
+    },
 });
 
 export default api;
