@@ -13,7 +13,6 @@ import api from "../utils/api.js";
 import EditProfilePopup from "./EditProfilePopup.jsx";
 import EditAvatarPopup from "./EditAvatarPopup.jsx";
 import AddPlacePopup from "./AddPlacePopup.jsx";
-import ConfirmPopup from "./ConfirmPopup.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import InfoTooltip from "./InfoTooltip.jsx";
 import Login from "./Login.jsx";
@@ -26,13 +25,10 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  //попап подтверждения нереализовал, в чек листе он отсутвует, поэтому решил пока оставить
-  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState([]);
   const [cards, setCards] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard
 
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
@@ -110,10 +106,6 @@ function App() {
 
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
-  };
-  //попап подтверждения нереализовал, в чек листе он отсутвует, поэтому решил пока оставить
-  const handleConfirmDeleteClick = () => {
-    setIsConfirmPopupOpen(true);
   };
 
   const closeAllPopups = () => {
@@ -200,7 +192,7 @@ function App() {
       .then(() => {
         setInfoTooltipImage(imageSuccess);
         setInfoTooltipMessage("Вы успешно зарегистрировались!");
-        history.push("/sign-in");
+        history.push("/signin");
       })
       .catch((err) => {
         console.log(err);
@@ -215,7 +207,7 @@ function App() {
   const onLogOut = () => {
     localStorage.removeItem("jwt");
     setLoggedIn(false);
-    history.push("/sign-in");
+    history.push("/signin");
   }
 
   return (
@@ -241,16 +233,16 @@ function App() {
               loggedIn={loggedIn}
             />
 
-            <Route exact path="/sign-up">
+            <Route exact path="/signup">
               <Register onRegister={onRegister} />
             </Route>
 
-            <Route exact path="/sign-in">
+            <Route exact path="/signin">
               <Login onLogin={onLogin} />
             </Route>
 
             <Route>
-              {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+              {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
             </Route>
           </Switch>
           <Footer />
@@ -283,11 +275,6 @@ function App() {
           message={infoTooltipMessage}
         />
 
-        <ConfirmPopup
-          isOpen={isConfirmPopupOpen}
-          onClose={closeAllPopups}
-          onConfirmDelete={handleCardDelete}
-        />
       </div>
     </CurrentUserContext.Provider>
   );
