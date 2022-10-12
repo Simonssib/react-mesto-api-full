@@ -6,6 +6,7 @@ const { errors } = require('celebrate');
 const userRoutes = require('./routes/users');
 const routerCards = require('./routes/cards');
 const auth = require('./middlewares/auth');
+const cors = require('./middlewares/cors');
 const NotFoundError = require('./errors/not-found-err');
 const { login, createUser } = require('./controllers/users');
 const { validateLogin, validateCreateUser } = require('./middlewares/validator');
@@ -13,6 +14,8 @@ const { validateLogin, validateCreateUser } = require('./middlewares/validator')
 const { PORT = 3000 } = process.env;
 
 const app = express();
+
+app.use(cors);
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
