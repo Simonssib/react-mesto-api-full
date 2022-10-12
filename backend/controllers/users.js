@@ -10,7 +10,7 @@ const OK = 200;
 
 const getAllUsers = (req, res, next) => {
   User.find({})
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch(next);
 };
 
@@ -89,7 +89,7 @@ const updateUserInformation = (req, res, next) => {
     .then((user) => {
       if (user === null) {
         throw new NotFoundError('Запрашиваемый пользователь не найден');
-      } return res.status(OK).send({ data: user });
+      } return res.status(OK).send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -111,7 +111,7 @@ const updateUserAvatar = (req, res, next) => {
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Запрашиваемый пользователь не найден');
-      } return res.status(OK).send({ data: user });
+      } return res.status(OK).send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
