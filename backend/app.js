@@ -1,14 +1,11 @@
-require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
-const cors = require('./middlewares/cors');
 const userRoutes = require('./routes/users');
 const routerCards = require('./routes/cards');
 const auth = require('./middlewares/auth');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/not-found-err');
 const { login, createUser } = require('./controllers/users');
 const { validateLogin, validateCreateUser } = require('./middlewares/validator');
@@ -17,8 +14,6 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-app.use(cors);
-
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
@@ -26,8 +21,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-app.use(requestLogger);
 
 app.post('/signin', validateLogin, login);
 app.post('/signup', validateCreateUser, createUser);
@@ -41,7 +34,6 @@ app.use((req, res, next) => {
   next(new NotFoundError('Страница не найдена'));
 });
 
-app.use(errorLogger);
 app.use(errors()); // обработчик ошибок celebrate
 
 app.use((err, req, res, next) => {

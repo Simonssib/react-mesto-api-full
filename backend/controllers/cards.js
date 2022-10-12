@@ -8,7 +8,7 @@ const OK = 200;
 
 const getCards = (req, res, next) => {
   Card.find({})
-    .then((card) => res.send(card))
+    .then((card) => res.send({ data: card }))
     .catch(next);
 };
 
@@ -17,7 +17,7 @@ const createCard = (req, res, next) => {
   const { name, link } = req.body;
 
   Card.create({ name, link, owner: userId })
-    .then((card) => res.send(card))
+    .then((card) => res.send({ data: card }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Некорректные данные'));
@@ -56,7 +56,7 @@ const setLike = (req, res, next) => {
     .then((card) => {
       if (card === null) {
         throw new NotFoundError('Картачка не найдена');
-      } return res.status(OK).send(card);
+      } return res.status(OK).send({ data: card, message: 'LIKE' });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -74,7 +74,7 @@ const deleteLike = (req, res, next) => {
     .then((card) => {
       if (card === null) {
         throw new NotFoundError('Картачка не найдена');
-      } return res.status(OK).send(card);
+      } return res.status(OK).send({ data: card, message: 'DISLIKE' });
     })
     .catch((err) => {
       if (err.name === 'CastError') {

@@ -1,4 +1,3 @@
-require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
@@ -11,14 +10,14 @@ const OK = 200;
 
 const getAllUsers = (req, res, next) => {
   User.find({})
-    .then((user) => res.send(user))
+    .then((user) => res.send({ data: user }))
     .catch(next);
 };
 
 const getUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
-      res.send(user);
+      res.send({ data: user });
     })
     .catch((err) => {
       next(err);
@@ -112,7 +111,7 @@ const updateUserAvatar = (req, res, next) => {
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Запрашиваемый пользователь не найден');
-      } return res.status(OK).send(user);
+      } return res.status(OK).send({ data: user });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
