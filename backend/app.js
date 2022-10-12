@@ -13,13 +13,13 @@ const NotFoundError = require('./errors/not-found-err');
 const { login, createUser } = require('./controllers/users');
 const { validateLogin, validateCreateUser } = require('./middlewares/validator');
 
-const { PORT, MONGO_URI } = process.env;
+const { PORT = 3000 } = process.env;
 
 const app = express();
 
 app.use(cors);
 
-mongoose.connect(MONGO_URI, {
+mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
 
