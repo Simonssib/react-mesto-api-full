@@ -62,21 +62,37 @@ function App() {
       api
         .getUserInfo()
         .then((res) => {
-          setCurrentUser(res);
+          setCurrentUser(res.data);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
 
       api.getInitialCards()
-        .then((cards) => {
-          setCards(cards);
+        .then((res) => {
+          setCards(res);
         })
         .catch((err) => {
           console.log(err);
         });
     }
   }, [loggedIn]);
+
+/*
+  useEffect(() => {
+    if (loggedIn) {
+      Promise.all([api.getUserInfo(), api.getInitialCards()])
+        .then(([res, items]) => {
+          setCurrentUser(res.data);
+          setCards(items.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn]);
+*/
+
 
   useEffect(() => {
     function closeByEscape(evt) {
