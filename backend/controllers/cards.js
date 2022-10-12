@@ -8,7 +8,11 @@ const OK = 200;
 
 const getCards = (req, res, next) => {
   Card.find({})
-    .then((card) => res.send({ data: card }))
+    .then((card) => {
+      if (card !== null) {
+        res.send(card);
+      }
+    })
     .catch(next);
 };
 
