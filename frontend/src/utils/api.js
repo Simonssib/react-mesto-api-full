@@ -72,7 +72,7 @@ class Api {
     };
 
     setLike(id) {
-        return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
             method: 'PUT',
             credentials: 'include',
             headers: {
@@ -83,7 +83,7 @@ class Api {
     };
 
     removeLike(id) {
-        return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
             method: 'DELETE',
             credentials: 'include',
             headers: {
@@ -95,25 +95,11 @@ class Api {
 
     toggleLike(id, isLiked) {
         if (isLiked) {
-            return fetch(`${this._baseUrl}/cards/likes/${id}`, {
-                method: 'PUT',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-                }
-            }).then(this._checkError);
+            return this.setLike(id);
         } else {
-            return fetch(`${this._baseUrl}/cards/likes/${id}`, {
-                method: 'DELETE',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-                }
-            }).then(this._checkError);
+            return this.removeLike(id);
         }
-    }
+    };
 
     editUserAvatar(url) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {

@@ -7,7 +7,7 @@ const NotFoundError = require('../errors/not-found-err');
 const OK = 200;
 
 const getCards = (req, res, next) => {
-  Card.find({})
+  Card.find({}).sort({ createdAt: -1 })
     .then((card) => {
       if (card !== null) {
         res.send(card);
@@ -59,12 +59,12 @@ const setLike = (req, res, next) => {
   Card.findByIdAndUpdate(cardId, { $addToSet: { likes: userId } }, { new: true })
     .then((card) => {
       if (card === null) {
-        throw new NotFoundError('Картачка не найдена');
+        throw new NotFoundError('Карточка не найдена');
       } return res.status(OK).send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError('Картачка не найдена'));
+        next(new BadRequestError('Некорректные данные'));
         return;
       } next(err);
     });
@@ -77,12 +77,12 @@ const deleteLike = (req, res, next) => {
   Card.findByIdAndUpdate(cardId, { $pull: { likes: userId } }, { new: true })
     .then((card) => {
       if (card === null) {
-        throw new NotFoundError('Картачка не найдена');
+        throw new NotFoundError('Карточка не найдена');
       } return res.status(OK).send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError('Картачка не найдена'));
+        next(new BadRequestError('Некорректные данные'));
         return;
       } next(err);
     });
