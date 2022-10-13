@@ -13,7 +13,7 @@ export const registration = (email, password) => {
             credentials: 'include',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('jwt')}`,
             },
             body: JSON.stringify({email, password})
         })
@@ -26,7 +26,7 @@ export const authorization = (email, password) => {
             credentials: 'include',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                Authorization: `Bearer ${localStorage.getItem('jwt')}`,
             },
             body: JSON.stringify({email, password}),
         })
