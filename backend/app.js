@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -11,7 +12,7 @@ const NotFoundError = require('./errors/not-found-err');
 const { login, createUser } = require('./controllers/users');
 const { validateLogin, validateCreateUser } = require('./middlewares/validator');
 
-const { PORT = 3000 } = process.env;
+const { PORT } = process.env;
 
 const app = express();
 
