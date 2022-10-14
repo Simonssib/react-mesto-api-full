@@ -8,10 +8,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards`, {
                 method: 'GET',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-                },
+                headers: this._headers,
             })
             .then(this._checkError);
     };
@@ -20,10 +17,7 @@ class Api {
         return fetch(`${this._baseUrl}/users/me`, {
                 method: 'GET',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-                },
+                headers: this._headers,
             })
             .then(this._checkError);
     };
@@ -32,10 +26,7 @@ class Api {
         return fetch(`${this._baseUrl}/users/me`, {
                 method: 'PATCH',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-                },
+                headers: this._headers,
                 body: JSON.stringify({
                     name: name,
                     about: about
@@ -48,10 +39,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards`, {
                 method: 'POST',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-                },
+                headers: this._headers,
                 body: JSON.stringify({
                     name: data.name,
                     link: data.link,
@@ -64,10 +52,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
             credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-            },
+            headers: this._headers,
         }).then(this._checkError);
     };
 
@@ -75,10 +60,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${id}/likes`, {
             method: 'PUT',
             credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-            },
+            headers: this._headers,
         }).then(this._checkError);
     };
 
@@ -86,10 +68,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${id}/likes`, {
             method: 'DELETE',
             credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-            },
+            headers: this._headers,
         }).then(this._checkError);
     };
 
@@ -105,10 +84,7 @@ class Api {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-            },
+            headers: this._headers,
             body: JSON.stringify({
                 avatar: url,
             })
