@@ -4,5 +4,8 @@
 Ссылка на сайт, размещенный на ВМ в Яндекс.Облако: 
 https://simonmesto.students.nomoredomains.icu
 
-Запросы к API осуществляются по адресу:
+Запросы к API осуществляются по адресу URL:
 https://api.simonmesto.students.nomoredomains.icu
+
+Публичный IP адрес:
+51.250.11.101
