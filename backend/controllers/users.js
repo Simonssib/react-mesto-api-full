@@ -19,7 +19,7 @@ const getAllUsers = (req, res, next) => {
 const getUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
-      res.send(user);
+      res.send({ data: user });
     })
     .catch((err) => {
       next(err);
