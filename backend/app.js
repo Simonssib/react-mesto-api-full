@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const userRoutes = require('./routes/users');
 const routerCards = require('./routes/cards');
 const auth = require('./middlewares/auth');
@@ -15,6 +16,8 @@ const { validateLogin, validateCreateUser } = require('./middlewares/validator')
 const { PORT } = process.env;
 
 const app = express();
+
+app.use(requestLogger);
 
 app.use(cors);
 
@@ -29,6 +32,12 @@ app.use(cookieParser());
 app.post('/signin', validateLogin, login);
 app.post('/signup', validateCreateUser, createUser);
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.use(auth);
 
 app.use('/users', userRoutes);
@@ -37,6 +46,8 @@ app.use('/cards', routerCards);
 app.use((req, res, next) => {
   next(new NotFoundError('Страница не найдена'));
 });
+
+app.use(errorLogger);
 
 app.use(errors()); // обработчик ошибок celebrate
 
