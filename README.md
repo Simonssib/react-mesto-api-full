@@ -14,6 +14,9 @@
 - Express.js
 - MongoDB
 
+**Статус и планы по доработке проекта**
+В данный момент сайт с серверной частью на express нигде не размещен. В планах есть идея разместить проект на бесплатный хостинг.
+
 **Макет Figma**
 
 * [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
